@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mizan</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--card:rgba(255,255,255,0.05);--cb:rgba(255,255,255,0.09);
+  --t:#f0f0f0;--t2:#8a8a9a;--t3:#4a4a5a;
+  --green:#2ecc8a;--gdim:rgba(46,204,138,0.15);
+  --blue:#4a90e2;--bdim:rgba(74,144,226,0.15);
+  --amber:#f5a623;--adim:rgba(245,166,35,0.15);
+  --red:#e05555;
+}
+body{background:transparent}
+.app{width:100%;max-width:390px;margin:0 auto;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--t);min-height:700px;position:relative}
+.page{display:none;padding-bottom:90px}
+.page.on{display:block}
+
+.sbar{display:flex;justify-content:space-between;padding:12px 18px 0;font-size:12px;font-weight:600;color:var(--t)}
+
+.logo-row{display:flex;align-items:center;gap:10px;padding:14px 18px 0}
+.logo-ico{width:38px;height:38px;border-radius:10px;background:rgba(245,166,35,0.2);border:1px solid rgba(245,166,35,0.35);display:flex;align-items:center;justify-content:center;font-size:18px}
+.brand-name{font-size:17px;font-weight:700;letter-spacing:3px}
+.brand-tag{font-size:8px;letter-spacing:2px;color:var(--t3);margin-top:1px}
+
+.greet{padding:20px 18px 0}
+.greet-salam{font-size:13px;color:var(--t2)}
+.greet-name{font-size:30px;font-weight:700;line-height:1.1}
+.greet-sub{font-size:12px;color:var(--t3);margin-top:3px}
+
+.cards{padding:16px 18px 0;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--cb);border-radius:20px;padding:16px;cursor:pointer;transition:transform .12s}
+.card:active{transform:scale(.98)}
+
+.ch{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.cico width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.gi{background:rgba(46,204,138,0.18)}
+.bi{background:rgba(74,144,226,0.18)}
+.ai{background:rgba(245,166,35,0.18)}
+.ctitle{font-size:17px;font-weight:600}
+.csub{font-size:11px;color:var(--t2);margin-top:1px}
+
+.empty-state{text-align:center;padding:18px 0 6px;color:var(--t3);font-size:13px}
+
+.srow{display:flex;gap:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px}
+.si{flex:1}
+.sv{font-size:15px;font-weight:600}
+.sl{font-size:10px;color:var(--t3);margin-top:1px}
+
+.pbar{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin:8px 0}
+.pfill{height:100%;border-radius:2px}
+
+.bnav{background:rgba(10,10,15,0.97);border-top:1px solid rgba(255,255,255,0.07);display:flex;padding:10px 0 20px}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:var(--t3);font-size:10px;transition:color .15s}
+.ni.on{color:var(--green)}
+.ni svg{width:22px;height:22px}
+
+.ph{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
+.back{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0}
+.ptitle{font-size:20px;font-weight:700}
+
+.datebar{padding:12px 18px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.datebar::-webkit-scrollbar{display:none}
+.dscroll{display:flex;gap:7px;width:max-content}
+.dpill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);cursor:pointer;color:var(--t2);transition:all .15s;white-space:nowrap}
+.dpill.sel{background:var(--green);border-color:var(--green);color:#000}
+
+.prayer-list{margin:14px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:18px;overflow:hidden}
+.prow{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer}
+.prow:last-child{border-bottom:none}
+.pck{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,0.14);margin-right:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.pck.done{background:var(--green);border-color:var(--green)}
+.pck.done::after{content:'✓';font-size:13px;color:#000;font-weight:700}
+.pname{font-size:15px;font-weight:500}
+.ptime{margin-left:auto;font-size:12px;color:var(--t2)}
+
+.scards{display:flex;gap:10px;padding:14px 18px 0}
+.scard{flex:1;background:var(--card);border:1px solid var(--cb);border-radius:13px;padding:13px}
+.snum{font-size:26px;font-weight:700;color:var(--green)}
+.slbl{font-size:10px;color:var(--t3);margin-top:1px}
+
+.whdr{padding:20px 18px 0}
+.wbig{font-size:50px;font-weight:700;line-height:1}
+.wbig span{font-size:17px;color:var(--t2);font-weight:400}
+.wchange{font-size:13px;color:var(--green);margin-top:4px}
+.winput-row{display:flex;gap:10px;padding:14px 18px 0;align-items:center}
+.winput{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;color:var(--t);font-size:22px;font-weight:600;width:130px;outline:none;text-align:center}
+.wbtn{flex:1;padding:11px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer}
+.wbtn-add{background:var(--green);color:#000}
+.wbtn-cancel{background:rgba(255,255,255,0.07);color:var(--t2);border:1px solid rgba(255,255,255,0.1)}
+
+.wchart{margin:14px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:18px;padding:14px}
+.wmetrics{display:flex;gap:10px;padding:14px 18px 0}
+.wmet{flex:1;background:var(--card);border:1px solid var(--cb);border-radius:13px;padding:12px}
+.wmv{font-size:18px;font-weight:700;color:var(--blue)}
+.wml{font-size:10px;color:var(--t3);margin-top:1px}
+
+.ctr-body{padding:40px 18px 0;text-align:center}
+.ctr-num{font-size:86px;font-weight:700;color:var(--amber);line-height:1}
+.ctr-unit{font-size:20px;color:var(--t2);margin-top:2px}
+.ctr-since{margin:16px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:14px;padding:14px;text-align:center}
+.ctr-sl{font-size:11px;color:var(--t3)}
+.ctr-sv{font-size:16px;font-weight:600;color:var(--amber);margin-top:3px}
+.ctr-btns{display:flex;gap:12px;padding:20px 18px 0}
+.ctr-btn{flex:1;padding:16px;border-radius:14px;border:none;font-size:15px;font-weight:600;cursor:pointer;transition:transform .12s}
+.ctr-btn:active{transform:scale(.97)}
+.ctr-add{background:var(--green);color:#000}
+.ctr-stop{background:rgba(224,85,85,0.18);color:var(--red);border:1px solid rgba(224,85,85,0.3)}
+
+.info-body{padding:16px 18px 0;display:flex;flex-direction:column;gap:12px}
+.icard{background:var(--card);border:1px solid var(--cb);border-radius:16px;padding:14px}
+.icard-title{font-size:12px;color:var(--t3);margin-bottom:10px;font-weight:600;letter-spacing:.5px}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.irow:last-child{border-bottom:none}
+.ikey{font-size:13px;color:var(--t2)}
+.ival{font-size:14px;font-weight:600}
+.ival-input{background:transparent;border:none;color:var(--t);font-size:14px;font-weight:600;text-align:right;width:110px;outline:none;font-family:inherit}
+.ival-input::placeholder{color:var(--t3)}
+.isave{width:100%;padding:12px;border-radius:12px;background:var(--green);border:none;color:#000;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;transition:transform .12s}
+.isave:active{transform:scale(.98)}
+.toast{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-size:12px;font-weight:700;padding:6px 18px;border-radius:20px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Mizan — application de suivi personnel</h2>
+
+<div class="app" id="app">
+<div class="toast" id="toast"></div>
+
+<div class="page on" id="pg-home">
+  <div class="sbar"><span>09:41</span><span style="color:var(--t2);font-size:11px">●●●● WiFi ▓</span></div>
+  <div class="logo-row">
+    <div class="logo-ico">⚖️</div>
+    <div><div class="brand-name">MIZAN</div><div class="brand-tag">ÉQUILIBRE · DISCIPLINE · PROGRÈS</div></div>
+  </div>
+  <div class="greet">
+    <div class="greet-salam" id="greet-salam">Bonjour,</div>
+    <div class="greet-name" id="greet-name">—</div>
+    <div class="greet-sub">Que ta journée soit pleine de baraka.</div>
+  </div>
+  <div class="cards">
+    <div class="card" onclick="go('prayers')">
+      <div class="ch">
+        <div class="cico gi">🕌</div>
+        <div><div class="ctitle">Prières</div><div class="csub" id="home-prayer-sub">Aucune donnée aujourd'hui</div></div>
+        <div style="margin-left:auto">
+          <svg width="50" height="50" viewBox="0 0 50 50" id="home-prayer-ring">
+            <circle cx="25" cy="25" r="19" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="5"/>
+            <circle cx="25" cy="25" r="19" fill="none" stroke="#2ecc8a" stroke-width="5" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round" transform="rotate(-90 25 25)" id="home-prayer-arc"/>
+            <text x="25" y="29" text-anchor="middle" fill="#2ecc8a" font-size="11" font-weight="700" id="home-prayer-pct">0%</text>
+          </svg>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="si"><div class="sl">Série actuelle</div><div class="sv" id="home-streak" style="color:var(--green)">— jours</div></div>
+        <div class="si"><div class="sl">Ce mois</div><div class="sv" id="home-monthly">—</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="go('weight')">
+      <div class="ch">
+        <div class="cico bi">⚖️</div>
+        <div><div class="ctitle">Poids</div><div class="csub">Progression vers ton objectif</div></div>
+        <div style="margin-left:auto;background:var(--bdim);border:1px solid rgba(74,144,226,0.3);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--blue)" id="home-obj-badge">Obj : —</div>
+      </div>
+      <div id="home-weight-empty" class="empty-state">Aucune pesée enregistrée</div>
+      <div id="home-weight-data" style="display:none">
+        <div style="font-size:36px;font-weight:700;line-height:1" id="home-weight-val">— kg</div>
+        <div style="color:var(--green);font-size:12px;margin-top:3px" id="home-weight-diff"></div>
+      </div>
+    </div>
+    <div class="card" onclick="go('counter')">
+      <div class="ch">
+        <div class="cico ai">⏳</div>
+        <div><div class="ctitle">Compteur</div><div class="csub">Ta constance, jour après jour</div></div>
+        <div style="margin-left:auto;text-align:center">
+          <div style="font-size:30px;font-weight:700;color:var(--amber)" id="home-counter-num">0</div>
+          <div style="font-size:10px;color:var(--t3)">jours</div>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="si"><div class="sl">Depuis le</div><div class="sv" id="home-since" style="color:var(--amber)">—</div></div>
+        <div class="si"><div class="sl">Statut</div><div class="sv" id="home-ctr-status">En attente</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pg-prayers">
+  <div class="sbar"><span>09:41</span><span style="color:var(--t2);font-size:11px">●●●● WiFi ▓</span></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">🕌 Prières</div></div>
+  <div class="datebar"><div class="dscroll" id="prayer-dates"></div></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px 0">
+    <div style="font-size:13px;color:var(--t2)" id="prayer-day-label">Aujourd'hui</div>
+    <div style="font-size:22px;font-weight:700;color:var(--green)" id="prayer-score">0 / 5</div>
+  </div>
+  <div class="prayer-list">
+    <div class="prow" onclick="toggleP(0)"><div class="pck" id="pc0"></div><div class="pname">Fajr</div><div class="ptime">Aube</div></div>
+    <div class="prow" onclick="toggleP(1)"><div class="pck" id="pc1"></div><div class="pname">Dhuhr</div><div class="ptime">Midi</div></div>
+    <div class="prow" onclick="toggleP(2)"><div class="pck" id="pc2"></div><div class="pname">Asr</div><div class="ptime">Après-midi</div></div>
+    <div class="prow" onclick="toggleP(3)"><div class="pck" id="pc3"></div><div class="pname">Maghrib</div><div class="ptime">Coucher</div></div>
+    <div class="prow" onclick="toggleP(4)"><div class="pck" id="pc4"></div><div class="pname">Isha</div><div class="ptime">Nuit</div></div>
+  </div>
+  <div class="scards">
+    <div class="scard"><div class="snum" id="p-streak">0</div><div class="slbl">Série actuelle</div></div>
+    <div class="scard"><div class="snum" id="p-best">0</div><div class="slbl">Meilleure série</div></div>
+    <div class="scard"><div class="snum" id="p-month">0%</div><div class="slbl">Ce mois-ci</div></div>
+  </div>
+</div>
+
+<div class="page" id="pg-weight">
+  <div class="sbar"><span>09:41</span><span style="color:var(--t2);font-size:11px">●●●● WiFi ▓</span></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">⚖️ Poids</div></div>
+  <div class="datebar"><div class="dscroll" id="weight-dates"></div></div>
+  <div class="whdr">
+    <div style="font-size:12px;color:var(--t3);margin-bottom:4px" id="weight-day-label">Aujourd'hui</div>
+    <div class="wbig" id="weight-display">—<span> kg</span></div>
+    <div class="wchange" id="weight-diff-txt"></div>
+  </div>
+  <div class="winput-row">
+    <input class="winput" type="number" step="0.1" id="weight-input" placeholder="0.0" />
+    <button class="wbtn wbtn-add" onclick="addWeight()">Enregistrer</button>
+  </div>
+  <div class="wchart" id="weight-chart-box" style="display:none">
+    <div style="font-size:11px;color:var(--t3);margin-bottom:8px">Évolution</div>
+    <svg width="100%" height="80" viewBox="0 0 300 80" id="weight-svg" preserveAspectRatio="none"></svg>
+  </div>
+  <div class="wmetrics">
+    <div class="wmet"><div class="wml">Départ</div><div class="wmv" id="wm-start">—</div></div>
+    <div class="wmet"><div class="wml">Actuel</div><div class="wmv" id="wm-cur">—</div></div>
+    <div class="wmet"><div class="wml">Objectif</div><div class="wmv" id="wm-goal">—</div></div>
+  </div>
+</div>
+
+<div class="page" id="pg-counter">
+  <div class="sbar"><span>09:41</span><span style="color:var(--t2);font-size:11px">●●●● WiFi ▓</span></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">⏳ Compteur</div></div>
+  
+  <div class="ctr-body">
+    <div class="ctr-num" id="ctr-num">0</div>
+    <div class="ctr-unit">jours consécutifs</div>
+  </div>
+  
+  <div class="ctr-since">
+    <div class="ctr-sl">Depuis le</div>
+    <div class="ctr-sv" id="ctr-since">—</div>
+  </div>
+
+  <div class="ctr-since" style="margin-top:12px; padding:12px;">
+    <div class="ctr-sl" style="margin-bottom:4px;">🏆 Plus longue série (Record)</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+      <input class="ival-input" id="ctr-best-input" type="number" value="0" style="font-size:20px;font-weight:700;color:var(--amber);background:rgba(255,255,255,0.06);border:1px solid rgba(245,166,35,0.2);border-radius:8px;padding:4px 10px;width:70px;text-align:center;" onchange="manualUpdateBest(this.value)" />
+      <span style="font-size:13px;color:var(--t2)">jours</span>
+    </div>
+  </div>
+
+  <div class="ctr-btns">
+    <button class="ctr-btn ctr-add" onclick="ctrAdd()">+ Ajouter un jour</button>
+    <button class="ctr-btn ctr-stop" onclick="ctrStop()">Arrêter</button>
+  </div>
+  <div id="ctr-history" style="padding:14px 18px 0;display:flex;flex-direction:column;gap:6px"></div>
+</div>
+
+<div class="page" id="pg-info">
+  <div class="sbar"><span>09:41</span><span style="color:var(--t2);font-size:11px">●●●● WiFi ▓</span></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">👤 Mon profil</div></div>
+  <div class="info-body">
+    <div class="icard">
+      <div class="icard-title">IDENTITÉ</div>
+      <div class="irow"><span class="ikey">Prénom</span><input class="ival-input" id="i-name" placeholder="Ton prénom" /></div>
+      <div class="irow"><span class="ikey">Âge</span><input class="ival-input" id="i-age" type="number" placeholder="—" /></div>
+    </div>
+    <div class="icard">
+      <div class="icard-title">DONNÉES CORPORELLES</div>
+      <div class="irow"><span class="ikey">Taille</span><input class="ival-input" id="i-height" type="number" placeholder="— cm" /></div>
+      <div class="irow"><span class="ikey">Poids de départ</span><input class="ival-input" id="i-startw" type="number" step="0.1" placeholder="— kg" /></div>
+      <div class="irow"><span class="ikey">Poids actuel</span><div class="ival" id="i-curw-display" style="color:var(--blue)">—</div></div>
+      <div class="irow"><span class="ikey">IMC</span><div class="ival" id="i-imc">—</div></div>
+    </div>
+    <div class="icard">
+      <div class="icard-title">OBJECTIFS</div>
+      <div class="irow"><span class="ikey">Poids cible</span><input class="ival-input" id="i-goalw" type="number" step="0.1" placeholder="— kg" /></div>
+      <div class="irow"><span class="ikey">Calories / jour</span><input class="ival-input" id="i-kcal" type="number" placeholder="— kcal" /></div>
+      <div class="irow"><span class="ikey">Protéines / jour</span><input class="ival-input" id="i-prot" type="number" placeholder="— g" /></div>
+    </div>
+    <button class="isave" onclick="saveInfo()">Enregistrer le profil</button>
+  </div>
+</div>
+
+<div id="bnav-wrap" style="background:rgba(10,10,15,0.97);border-top:1px solid rgba(255,255,255,0.07);display:flex;padding:10px 0 20px">
+  <div class="ni on" id="ni-home" onclick="go('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </div>
+  <div class="ni" id="ni-prayers" onclick="go('prayers')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+    Prières
+  </div>
+  <div class="ni" id="ni-weight" onclick="go('weight')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Poids
+  </div>
+  <div class="ni" id="ni-counter" onclick="go('counter')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Compteur
+  </div>
+  <div class="ni" id="ni-info" onclick="go('info')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Infos
+  </div>
+</div>
+
+</div>
+
+<script>
+const S = {
+  prayers: {},
+  weights: {},
+  counter: { days: 0, since: null, history: [], active: false, best: 0 },
+  info: { name:'', age:'', height:'', startw:'', goalw:'', kcal:'', prot:'' }
+};
+
+function fmtDate(d){ return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function fmtShort(d){ return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}); }
+function keyOf(d){ return d.toISOString().slice(0,10); }
+
+function buildDates(n){
+  const arr=[];
+  const today=new Date();
+  for(let i=n-1;i>=0;i--){
+    const d=new Date(today);
+    d.setDate(today.getDate()-i);
+    arr.push(d);
+  }
+  return arr;
+}
+
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-'+page).classList.add('on');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  const ni=document.getElementById('ni-'+page);
+  if(ni)ni.classList.add('on');
+  if(page==='prayers')initPrayerPage();
+  if(page==='weight')initWeightPage();
+  if(page==='counter')initCounterPage();
+  if(page==='info')initInfoPage();
+  if(page==='home')updateHome();
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+let selPrayerDate=keyOf(new Date());
+function initPrayerPage(){
+  const dates=buildDates(14);
+  const wrap=document.getElementById('prayer-dates');
+  wrap.innerHTML='';
+  dates.forEach(d=>{
+    const k=keyOf(d);
+    const isT=k===keyOf(new Date());
+    const pill=document.createElement('div');
+    pill.className='dpill'+(k===selPrayerDate?' sel':'');
+    pill.textContent=isT?'Aujourd\'hui':fmtShort(d);
+    pill.onclick=()=>{selPrayerDate=k;initPrayerPage();};
+    wrap.appendChild(pill);
+  });
+  const data=S.prayers[selPrayerDate]||[false,false,false,false,false];
+  const isToday=selPrayerDate===keyOf(new Date());
+  document.getElementById('prayer-day-label').textContent=isToday?'Aujourd\'hui':new Date(selPrayerDate+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long'});
+  const done=data.filter(Boolean).length;
+  document.getElementById('prayer-score').textContent=done+' / 5';
+  for(let i=0;i<5;i++){
+    const el=document.getElementById('pc'+i);
+    el.className='pck'+(data[i]?' done':'');
+  }
+  calcPrayerStats();
+}
+
+function toggleP(i){
+  const data=S.prayers[selPrayerDate]||[false,false,false,false,false];
+  data[i]=!data[i];
+  S.prayers[selPrayerDate]=data;
+  initPrayerPage();
+  updateHome();
+  showToast(data[i]?'Prière cochée ✓':'Prière décochée');
+}
+
+function calcPrayerStats(){
+  const keys=Object.keys(S.prayers).sort();
+  let streak=0,best=0,cur=0;
+  const todayK=keyOf(new Date());
+  for(let i=keys.length-1;i>=0;i--){
+    const done=S.prayers[keys[i]].filter(Boolean).length;
+    if(done===5){cur++;if(cur>best)best=cur;}
+    else{if(i===keys.length-1||keys[i]===todayK&&done<5){break;}else break;}
+  }
+  const now=new Date();
+  let monthDone=0,monthTotal=0;
+  for(const k of keys){
+    const d=new Date(k+'T12:00:00');
+    if(d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()){
+      monthTotal+=5;monthDone+=S.prayers[k].filter(Boolean).length;
+    }
+  }
+  const monthPct=monthTotal>0?Math.round(monthDone/monthTotal*100):0;
+  document.getElementById('p-streak').textContent=cur;
+  document.getElementById('p-best').textContent=best;
+  document.getElementById('p-month').textContent=monthPct+'%';
+  document.getElementById('home-streak').textContent=cur+' jours';
+  document.getElementById('home-monthly').textContent=monthPct+'%';
+}
+
+let selWeightDate=keyOf(new Date());
+function initWeightPage(){
+  const dates=buildDates(30);
+  const wrap=document.getElementById('weight-dates');
+  wrap.innerHTML='';
+  dates.forEach(d=>{
+    const k=keyOf(d);
+    const isT=k===keyOf(new Date());
+    const pill=document.createElement('div');
+    pill.className='dpill'+(k===selWeightDate?' sel':'');
+    pill.textContent=isT?'Aujourd\'hui':fmtShort(d);
+    pill.onclick=()=>{selWeightDate=k;initWeightPage();};
+    wrap.appendChild(pill);
+  });
+  const isToday=selWeightDate===keyOf(new Date());
+  document.getElementById('weight-day-label').textContent=isToday?'Aujourd\'hui':new Date(selWeightDate+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long'});
+  const w=S.weights[selWeightDate];
+  document.getElementById('weight-display').innerHTML=(w?w.toFixed(1):'—')+'<span> kg</span>';
+  document.getElementById('weight-input').value=w||'';
+  const keys=Object.keys(S.weights).sort();
+  if(keys.length>0){
+    const first=S.weights[keys[0]];
+    const last=S.weights[keys[keys.length-1]];
+    const diff=(last-first).toFixed(1);
+    document.getElementById('weight-diff-txt').textContent=diff<0?'↓ '+Math.abs(diff)+' kg depuis le début':diff>0?'↑ '+diff+' kg depuis le début':'Stable';
+    document.getElementById('wm-start').textContent=first.toFixed(1)+' kg';
+    document.getElementById('wm-cur').textContent=last.toFixed(1)+' kg';
+    document.getElementById('wm-goal').textContent=(S.info.goalw?S.info.goalw+' kg':'—');
+    drawWeightChart(keys);
+    document.getElementById('weight-chart-box').style.display='block';
+  } else {
+    document.getElementById('wm-start').textContent='—';
+    document.getElementById('wm-cur').textContent='—';
+    document.getElementById('wm-goal').textContent=S.info.goalw?S.info.goalw+' kg':'—';
+    document.getElementById('weight-diff-txt').textContent='';
+    document.getElementById('weight-chart-box').style.display='none';
+  }
+}
+
+function drawWeightChart(keys){
+  if(keys.length<2)return;
+  const vals=keys.map(k=>S.weights[k]);
+  const mn=Math.min(...vals)-0.5,mx=Math.max(...vals)+0.5;
+  const pts=keys.map((k,i)=>{
+    const x=Math.round(i/(keys.length-1)*290+5);
+    const y=Math.round((1-(vals[i]-mn)/(mx-mn))*70+5);
+    return x+','+y;
+  });
+  const svg=document.getElementById('weight-svg');
+  svg.innerHTML='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#4a90e2" stroke-width="2.5" stroke-linecap="round"/><circle cx="'+pts[pts.length-1].split(',')[0]+'" cy="'+pts[pts.length-1].split(',')[1]+'" r="4" fill="#4a90e2"/>';
+}
+
+function addWeight(){
+  const v=parseFloat(document.getElementById('weight-input').value);
+  if(isNaN(v)||v<20||v>300){showToast('Poids invalide');return;}
+  S.weights[selWeightDate]=v;
+  initWeightPage();
+  updateHome();
+  showToast('Poids enregistré ✓');
+}
+
+function initCounterPage(){
+  document.getElementById('ctr-num').textContent=S.counter.days;
+  document.getElementById('ctr-since').textContent=S.counter.since?S.counter.since:'—';
+  document.getElementById('ctr-best-input').value=S.counter.best;
+  
+  document.getElementById('home-counter-num').textContent=S.counter.days;
+  document.getElementById('home-since').textContent=S.counter.since||'—';
+  document.getElementById('home-ctr-status').textContent=S.counter.active?'Actif':'Arrêté';
+  
+  const hist=document.getElementById('ctr-history');
+  if(S.counter.history.length>0){
+    hist.innerHTML='<div style="font-size:11px;color:var(--t3);margin-bottom:6px">Historique récent</div>';
+    [...S.counter.history].reverse().slice(0,5).forEach(k=>{
+      const d=document.createElement('div');
+      d.style.cssText='background:var(--adim);border:1px solid rgba(245,166,35,0.15);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--amber)';
+      d.textContent='✓ '+new Date(k+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long'});
+      hist.appendChild(d);
+    });
+  } else hist.innerHTML='';
+}
+
+function ctrAdd(){
+  S.counter.days++;
+  if(!S.counter.since){
+    const d=new Date();
+    S.counter.since=fmtDate(d);
+  }
+  S.counter.active=true;
+  
+  if(S.counter.days > S.counter.best){
+    S.counter.best = S.counter.days;
+    document.getElementById('ctr-best-input').value = S.counter.best;
+  }
+  
+  const k=keyOf(new Date());
+  if(!S.counter.history.includes(k))S.counter.history.push(k);
+  initCounterPage();
+  showToast('Jour ajouté — '+S.counter.days+' jours');
+}
+
+function ctrStop(){
+  if(S.counter.days===0){showToast('Compteur déjà à 0');return;}
+  S.counter.active=false;
+  S.counter.days=0;
+  S.counter.since=null;
+  initCounterPage();
+  showToast('Compteur remis à zéro');
+}
+
+function manualUpdateBest(val){
+  const v = parseInt(val, 10);
+  if(isNaN(v) || v < 0){
+    showToast('Valeur invalide');
+    document.getElementById('ctr-best-input').value = S.counter.best;
+    return;
+  }
+  S.counter.best = v;
+  showToast('Record mis à jour manuellement ✓');
+}
+
+function initInfoPage(){
+  document.getElementById('i-name').value=S.info.name;
+  document.getElementById('i-age').value=S.info.age;
+  document.getElementById('i-height').value=S.info.height;
+  document.getElementById('i-startw').value=S.info.startw;
+  document.getElementById('i-goalw').value=S.info.goalw;
+  document.getElementById('i-kcal').value=S.info.kcal;
+  document.getElementById('i-prot').value=S.info.prot;
+  const wkeys=Object.keys(S.weights).sort();
+  const curW=wkeys.length>0?S.weights[wkeys[wkeys.length-1]]:null;
+  document.getElementById('i-curw-display').textContent=curW?curW.toFixed(1)+' kg':'—';
+  if(curW&&S.info.height){
+    const hm=S.info.height/100;
+    const imc=(curW/(hm*hm)).toFixed(1);
+    document.getElementById('i-imc').textContent=imc;
+  } else document.getElementById('i-imc').textContent='—';
+}
+
+function saveInfo(){
+  S.info.name=document.getElementById('i-name').value.trim();
+  S.info.age=document.getElementById('i-age').value;
+  S.info.height=document.getElementById('i-height').value;
+  S.info.startw=document.getElementById('i-startw').value;
+  S.info.goalw=document.getElementById('i-goalw').value;
+  S.info.kcal=document.getElementById('i-kcal').value;
+  S.info.prot=document.getElementById('i-prot').value;
+  updateHome();
+  initInfoPage();
+  showToast('Profil enregistré ✓');
+}
+
+function updateHome(){
+  const n=S.info.name||'—';
+  document.getElementById('greet-name').textContent=n;
+  document.getElementById('greet-salam').textContent=n!=='—'?'Assalamu alaykoum,':'Bonjour,';
+  const wkeys=Object.keys(S.weights).sort();
+  const curW=wkeys.length>0?S.weights[wkeys[wkeys.length-1]]:null;
+  if(curW){
+    document.getElementById('home-weight-empty').style.display='none';
+    document.getElementById('home-weight-data').style.display='block';
+    document.getElementById('home-weight-val').innerHTML=curW.toFixed(1)+'<span style="font-size:16px;color:var(--t2);font-weight:400"> kg</span>';
+    if(S.info.startw){
+      const diff=(curW-parseFloat(S.info.startw)).toFixed(1);
+      document.getElementById('home-weight-diff').textContent=(diff<0?'↓ '+Math.abs(diff)+' kg depuis le départ':'↑ '+diff+' kg depuis le départ');
+    }
+  } else {
+    document.getElementById('home-weight-empty').style.display='block';
+    document.getElementById('home-weight-data').style.display='none';
+  }
+  document.getElementById('home-obj-badge').textContent='Obj : '+(S.info.goalw?S.info.goalw+' kg':'—');
+  document.getElementById('home-counter-num').textContent=S.counter.days;
+  document.getElementById('home-since').textContent=S.counter.since||'—';
+  document.getElementById('home-ctr-status').textContent=S.counter.active?'Actif':'En attente';
+  const todayPrayers=S.prayers[keyOf(new Date())]||[false,false,false,false,false];
+  const doneCnt=todayPrayers.filter(Boolean).length;
+  const pct=Math.round(doneCnt/5*100);
+  document.getElementById('home-prayer-sub').textContent=doneCnt>0?doneCnt+' / 5 prières aujourd\'hui':'Aucune prière cochée aujourd\'hui';
+  document.getElementById('home-prayer-pct').textContent=pct+'%';
+  const arc=document.getElementById('home-prayer-arc');
+  const offset=119.4-(119.4*pct/100);
+  arc.setAttribute('stroke-dashoffset',offset.toFixed(1));
+}
+
+updateHome();
+</script>
+</body>
+</html>

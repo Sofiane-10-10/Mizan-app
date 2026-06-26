@@ -34,7 +34,7 @@ html, body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: env(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top, 0px);
   position: relative;
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
@@ -42,7 +42,7 @@ html, body {
   display:none;
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 100px; /* Espace pour pas être caché par la barre du bas */
+  padding-bottom: 120px; /* Augmenté pour laisser respirer le bas */
 }
 .page.on{display:block}
 
@@ -55,7 +55,6 @@ html, body {
 .greet{padding:20px 18px 0}
 .greet-salam{font-size:13px;color:var(--t2)}
 .greet-name{font-size:30px;font-weight:700;line-height:1.1}
-.greet-sub"> {font-size:12px;color:var(--t3);margin-top:3px}
 .greet-sub{font-size:12px;color:var(--t3);margin-top:3px}
 
 .cards{padding:16px 18px 0;display:flex;flex-direction:column;gap:14px}
@@ -63,7 +62,7 @@ html, body {
 .card:active{transform:scale(.98)}
 
 .ch{display:flex;align-items:center;gap:11px;margin-bottom:12px}
-.cico{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cico width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .gi{background:rgba(46,204,138,0.18)}
 .bi{background:rgba(74,144,226,0.18)}
 .ai{background:rgba(245,166,35,0.18)}
@@ -75,6 +74,7 @@ html, body {
 .srow{display:flex;gap:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px}
 .si{flex:1}
 .sv{font-size:15px;font-weight:600}
+.sl stroke-width:2px;font-size:10px;color:var(--t3);margin-top:1px}
 .sl{font-size:10px;color:var(--t3);margin-top:1px}
 
 .ph{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
@@ -121,7 +121,6 @@ html, body {
 .wbtn{padding:11px 16px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer}
 .wbtn-add{background:var(--green);color:#000;flex:1}
 
-.wchart{margin:14px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:18px;padding:14px}
 .wmetrics{display:flex;gap:10px;padding:14px 18px 0}
 .wmet{flex:1;background:var(--card);border:1px solid var(--cb);border-radius:13px;padding:12px}
 .wmv{font-size:18px;font-weight:700;color:var(--blue)}
@@ -129,9 +128,14 @@ html, body {
 
 .image-section{margin:20px 18px 0;background:var(--card);border:1px dashed rgba(255,255,255,0.15);border-radius:18px;padding:16px;text-align:center;}
 .img-preview-container{margin-top:12px;display:grid;grid-template-columns:repeat(2, 1fr);gap:10px;}
-.img-box{position:relative;border-radius:10px;overflow:hidden;background:#1a1a24;aspect-ratio:4/3;}
+.img-box{position:relative;border-radius:10px;overflow:hidden;background:#1a1a24;aspect-ratio:4/3;cursor:pointer;}
 .img-box img{width:100%;height:100%;object-fit:cover;}
-.img-del{position:absolute;top:4px;right:4px;background:rgba(224,85,85,0.8);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;font-weight:bold;}
+.img-del{position:absolute;top:6px;right:6px;background:rgba(224,85,85,0.9);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;font-weight:bold;z-index:2;}
+
+/* MODALE DE VISIONNEUSE PHOTO (LIGHTBOX) */
+.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:999;justify-content:center;align-items:center;padding:20px;}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:85%;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.8);}
 
 .chat-container{margin:14px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
 .chat-logs{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px;}
@@ -170,47 +174,42 @@ html, body {
 .toast{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-size:12px;font-weight:700;padding:6px 18px;border-radius:20px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;white-space:nowrap}
 .toast.show{opacity:1}
 
-/* BARRE DE SECTIONS BAS OPTIMISÉE & UNIFORME style "DOCK" */
+/* BARRE DE NAVIGATION RECORRIGÉE POUR ÉVITER LE COUPE-BAS */
 #bnav-wrap {
   position: absolute;
-  bottom: 20px;
+  bottom: calc(15px + env(safe-area-inset-bottom, 10px));
   left: 18px;
   right: 18px;
-  height: 64px;
-  background: rgba(20, 20, 28, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 22px;
+  height: 66px;
+  background: rgba(20, 20, 28, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 8px;
   z-index: 100;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
 }
 .ni {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
   color: var(--t2);
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
 }
 .ni svg {
-  width: 22px;
-  height: 22px;
+  width: 23px;
+  height: 23px;
   stroke-width: 2.2;
-  transition: transform 0.2s ease;
 }
-.ni:active svg {
-  transform: scale(0.88);
-}
-/* États actifs unifiés par onglet */
 #ni-home.on { color: var(--t); background: rgba(255,255,255,0.08); }
 #ni-prayers.on { color: var(--green); background: var(--gdim); }
 #ni-weight.on { color: var(--blue); background: var(--bdim); }
@@ -218,11 +217,10 @@ html, body {
 #ni-counter.on { color: var(--amber); background: var(--adim); }
 #ni-info.on { color: #fff; background: rgba(255,255,255,0.12); }
 
-/* Petite pastille discrète sous l'icône active */
 .ni.on::after {
   content: '';
   position: absolute;
-  bottom: 4px;
+  bottom: 5px;
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -235,6 +233,11 @@ html, body {
 <div class="app" id="app">
 <div class="toast" id="toast"></div>
 
+<!-- LIGTHBOX POUR VISIONNER LES IMAGES EN GRAND -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Visualisation">
+</div>
+
 <!-- ACCUEIL -->
 <div class="page on" id="pg-home">
   <div class="logo-row">
@@ -242,44 +245,39 @@ html, body {
     <div><div class="brand-name">MIZAN</div><div class="brand-tag">ÉQUILIBRE · DISCIPLINE · PROGRÈS</div></div>
   </div>
   <div class="greet">
-    <div class="greet-salam" id="greet-salam">Bonjour,</div>
+    <div class="greet-salam">Bonjour,</div>
     <div class="greet-name" id="greet-name">—</div>
     <div class="greet-sub">Que ta journée soit pleine de baraka.</div>
   </div>
   <div class="cards">
     <div class="card" onclick="go('prayers')">
       <div class="ch">
-        <div class="cico gi">🕌</div>
-        <div><div class="ctitle">Prières</div><div class="csub" id="home-prayer-sub">Aucune donnée aujourd'hui</div></div>
+        <div class="cico gi">自由</div>
+        <div><div class="ctitle">Prières</div><div class="csub" id="home-prayer-sub">Suivi quotidien</div></div>
         <div style="margin-left:auto">
-          <svg width="50" height="50" viewBox="0 0 50 50" id="home-prayer-ring">
+          <svg width="50" height="50" viewBox="0 0 50 50">
             <circle cx="25" cy="25" r="19" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="5"/>
             <circle cx="25" cy="25" r="19" fill="none" stroke="#2ecc8a" stroke-width="5" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round" transform="rotate(-90 25 25)" id="home-prayer-arc"/>
             <text x="25" y="29" text-anchor="middle" fill="#2ecc8a" font-size="11" font-weight="700" id="home-prayer-pct">0%</text>
           </svg>
         </div>
       </div>
-      <div class="srow">
-        <div class="si"><div class="sl">Série actuelle</div><div class="sv" id="home-streak" style="color:var(--green)">— jours</div></div>
-        <div class="si"><div class="sl">Ce mois</div><div class="sv" id="home-monthly">—</div></div>
-      </div>
     </div>
     <div class="card" onclick="go('weight')">
       <div class="ch">
         <div class="cico bi">⚖️</div>
-        <div><div class="ctitle">Poids & Photos</div><div class="csub">Progression vers ton objectif</div></div>
+        <div><div class="ctitle">Poids & Photos</div><div class="csub">Progression corporelle</div></div>
         <div style="margin-left:auto;background:var(--bdim);border:1px solid rgba(74,144,226,0.3);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--blue)" id="home-obj-badge">Obj : —</div>
       </div>
       <div id="home-weight-empty" class="empty-state">Aucune pesée enregistrée</div>
       <div id="home-weight-data" style="display:none">
         <div style="font-size:36px;font-weight:700;line-height:1" id="home-weight-val">— kg</div>
-        <div style="color:var(--green);font-size:12px;margin-top:3px" id="home-weight-diff"></div>
       </div>
     </div>
     <div class="card" onclick="go('nutrition')">
       <div class="ch">
         <div class="cico pi">🍳</div>
-        <div><div class="ctitle">Nutrition & Calories AI</div><div class="csub" id="home-nut-sub">Cible : — kcal</div></div>
+        <div><div class="ctitle">Nutrition & Calories</div><div class="csub" id="home-nut-sub">Cible : — kcal</div></div>
       </div>
       <div class="srow">
         <div class="si"><div class="sl">Absorbé</div><div class="sv" id="home-nut-kcal" style="color:var(--purple)">0 kcal</div></div>
@@ -289,15 +287,10 @@ html, body {
     <div class="card" onclick="go('counter')">
       <div class="ch">
         <div class="cico ai">⏳</div>
-        <div><div class="ctitle">Compteur</div><div class="csub">Ta constance, jour après jour</div></div>
+        <div><div class="ctitle">Compteur</div><div class="csub">Ta constance globale</div></div>
         <div style="margin-left:auto;text-align:center">
           <div style="font-size:30px;font-weight:700;color:var(--amber)" id="home-counter-num">0</div>
-          <div style="font-size:10px;color:var(--t3)">jours</div>
         </div>
-      </div>
-      <div class="srow">
-        <div class="si"><div class="sl">Record absolu</div><div class="sv" id="home-counter-max" style="color:var(--amber)">0 jours</div></div>
-        <div class="si"><div class="sl">Depuis le</div><div class="sv" id="home-since" style="color:var(--t2)">—</div></div>
       </div>
     </div>
   </div>
@@ -318,11 +311,6 @@ html, body {
     <div class="prow" onclick="toggleP(3)"><div class="pck" id="pc3"></div><div class="pname">Maghrib</div><div class="ptime">Coucher</div></div>
     <div class="prow" onclick="toggleP(4)"><div class="pck" id="pc4"></div><div class="pname">Isha</div><div class="ptime">Nuit</div></div>
   </div>
-  <div class="scards">
-    <div class="scard"><div class="snum" id="p-streak">0</div><div class="slbl">Série actuelle</div></div>
-    <div class="scard"><div class="snum" id="p-best">0</div><div class="slbl">Meilleure série</div></div>
-    <div class="scard"><div class="snum" id="p-month">0%</div><div class="slbl">Ce mois-ci</div></div>
-  </div>
 </div>
 
 <!-- POIDS -->
@@ -332,24 +320,18 @@ html, body {
   <div class="whdr">
     <div style="font-size:12px;color:var(--t3);margin-bottom:4px" id="weight-day-label">Aujourd'hui</div>
     <div class="wbig" id="weight-display">—<span> kg</span></div>
-    <div class="wchange" id="weight-diff-txt"></div>
   </div>
   <div class="winput-row">
     <input class="winput" type="number" step="0.1" id="weight-input" placeholder="0.0" />
     <button class="wbtn wbtn-add" onclick="addWeight()">Enregistrer</button>
   </div>
-  <div class="wchart" id="weight-chart-box" style="display:none">
-    <div style="font-size:11px;color:var(--t3);margin-bottom:8px">Évolution</div>
-    <svg width="100%" height="80" viewBox="0 0 300 80" id="weight-svg" preserveAspectRatio="none"></svg>
-  </div>
   <div class="wmetrics">
     <div class="wmet"><div class="wml">Départ</div><div class="wmv" id="wm-start">—</div></div>
-    <div class="wmet"><div class="wml">Actuel</div><div class="wmv" id="wm-cur">—</div></div>
+    <div class="wmet"><div class="wml">Dernier</div><div class="wmv" id="wm-cur">—</div></div>
     <div class="wmet"><div class="wml">Objectif</div><div class="wmv" id="wm-goal">—</div></div>
   </div>
   <div class="image-section">
-    <div style="font-size:14px;font-weight:600;margin-bottom:4px;text-align:left">📸 Captures de la balance ou Repas</div>
-    <div style="font-size:11px;color:var(--t2);margin-bottom:12px;text-align:left">Ajoute des visuels pour suivre tes indicateurs de ce jour</div>
+    <div style="font-size:14px;font-weight:600;margin-bottom:4px;text-align:left">📸 Captures & Photos</div>
     <button class="wbtn" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:var(--t);width:100%" onclick="document.getElementById('img-file-input').click()">+ Ajouter une image</button>
     <input type="file" id="img-file-input" accept="image/*" style="display:none" onchange="handleImageUpload(this)" />
     <div class="img-preview-container" id="weight-img-grid"></div>
@@ -358,64 +340,53 @@ html, body {
 
 <!-- NUTRITION -->
 <div class="page" id="pg-nutrition">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">🍳 Nutrition & Calorie AI</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">🍳 Nutrition & Calories</div></div>
   <div class="datebar" id="db-nutrition"><div class="dscroll" id="nut-dates"></div></div>
   <div class="whdr" style="padding-bottom:5px">
     <div style="font-size:12px;color:var(--t3);margin-bottom:4px" id="nut-day-label">Aujourd'hui</div>
     <div style="display:flex;gap:15px;margin-top:10px;flex-wrap:wrap">
-      <div><span style="font-size:24px;font-weight:700;color:var(--purple)" id="nut-in-val">0</span><span style="font-size:11px;color:var(--t2)"> Absorbées</span></div>
-      <div><span style="font-size:24px;font-weight:700;color:var(--red)" id="nut-out-val">0</span><span style="font-size:11px;color:var(--t2)"> Brûlées</span></div>
-      <div><span style="font-size:24px;font-weight:700;color:var(--green)" id="nut-rem-val">0</span><span style="font-size:11px;color:var(--t2)"> Restantes</span></div>
+      <div><span style="font-size:24px;font-weight:700;color:var(--purple)" id="nut-in-val">0</span><span style="font-size:11px;color:var(--t2)"> In</span></div>
+      <div><span style="font-size:24px;font-weight:700;color:var(--green)" id="nut-rem-val">0</span><span style="font-size:11px;color:var(--t2)"> Reste</span></div>
     </div>
     <div style="font-size:11px;color:var(--t3);margin-top:10px;font-weight:600" id="nut-target-status">Cible : —</div>
   </div>
   <div class="chat-container">
-    <div style="font-size:12px;font-weight:600;color:var(--purple)">🤖 ASSISTANT REPAS & SPORT</div>
     <div class="chat-logs" id="chat-logs"></div>
     <div class="chat-input-row">
-      <input class="chat-in" id="chat-input" type="text" placeholder="Ex: un menu quick et 10 km de marche..." onkeydown="if(event.key==='Enter')sendChatMsg()" />
-      <button class="chat-btn" onclick="sendChatMsg()">Calcul</button>
+      <input class="chat-in" id="chat-input" type="text" placeholder="Tapes ton repas ou sport..." onkeydown="if(event.key==='Enter')sendChatMsg()" />
+      <button class="chat-btn" onclick="sendChatMsg()">OK</button>
     </div>
   </div>
-  <div style="padding:10px 18px 0"><div style="font-size:12px;color:var(--t3)">Historique enregistré pour cette journée :</div></div>
   <div id="nut-day-summary" style="padding:8px 18px 0;display:flex;flex-direction:column;gap:8px"></div>
 </div>
 
-<!-- COMPTEUR AVEC OPTION RECORD AJUSTABLE -->
+<!-- COMPTEUR -->
 <div class="page" id="pg-counter">
   <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">⏳ Compteur</div></div>
   <div class="ctr-body">
     <div class="ctr-num" id="ctr-num">0</div>
-    <div class="ctr-unit">jours consécutifs</div>
+    <div class="ctr-unit">jours</div>
   </div>
-  <div class="ctr-since">
-    <div class="ctr-sl">Date de lancement</div>
-    <div class="ctr-sv" id="ctr-since">—</div>
-  </div>
-  
-  <!-- NOUVEAU BLOC : OPTION RÉGLABLE DU RECORD -->
   <div class="icard" style="margin: 16px 18px 0; text-align: left;">
-    <div class="icard-title">🏆 RECORDS ET PARAMÈTRES</div>
+    <div class="icard-title">🏆 RECORD</div>
     <div class="irow">
       <span class="ikey">Record maximal (jours)</span>
       <input class="ival-input" id="ctr-max-input" type="number" value="0" onchange="updateMaxRecord(this.value)" style="color:var(--amber); font-size:16px;" />
     </div>
   </div>
-
   <div class="ctr-btns">
-    <button class="ctr-btn ctr-add" onclick="ctrAdd()">+ Ajouter un jour</button>
-    <button class="ctr-btn ctr-stop" onclick="ctrStop()">Arrêter / Reset</button>
+    <button class="ctr-btn ctr-add" onclick="ctrAdd()">+1 Jour</button>
+    <button class="ctr-btn ctr-stop" onclick="ctrStop()">Reset</button>
   </div>
 </div>
 
 <!-- PROFIL -->
 <div class="page" id="pg-info">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">👤 Mon profil</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Mon profil</div></div>
   <div class="info-body">
     <div class="icard">
-      <div class="icard-title">IDENTITÉ & APPARENCE</div>
-      <div class="irow"><span class="ikey">Prénom</span><input class="ival-input" id="i-name" placeholder="Ton prénom" /></div>
-      <div class="irow"><span class="ikey">Âge</span><input class="ival-input" id="i-age" type="number" placeholder="Ans" /></div>
+      <div class="irow"><span class="ikey">Prénom</span><input class="ival-input" id="i-name" placeholder="Prénom" /></div>
+      <div class="irow"><span class="ikey">Âge</span><input class="ival-input" id="i-age" type="number" /></div>
       <div class="irow"><span class="ikey">Sexe</span>
         <select class="ival-select" id="i-gender">
           <option value="M">Homme</option>
@@ -424,34 +395,32 @@ html, body {
       </div>
     </div>
     <div class="icard">
-      <div class="icard-title">DONNÉES CORPORELLES</div>
-      <div class="irow"><span class="ikey">Taille (cm)</span><input class="ival-input" id="i-height" type="number" placeholder="cm" /></div>
-      <div class="irow"><span class="ikey">Poids initial</span><input class="ival-input" id="i-startw" type="number" step="0.1" placeholder="kg" /></div>
-      <div class="irow"><span class="ikey">Poids cible</span><input class="ival-input" id="i-goalw" type="number" step="0.1" placeholder="kg" /></div>
+      <div class="irow"><span class="ikey">Taille (cm)</span><input class="ival-input" id="i-height" type="number" /></div>
+      <div class="irow"><span class="ikey">Poids initial</span><input class="ival-input" id="i-startw" type="number" step="0.1" /></div>
+      <div class="irow"><span class="ikey">Poids ciblé</span><input class="ival-input" id="i-goalw" type="number" step="0.1" /></div>
     </div>
     <div class="icard">
-      <div class="icard-title">🎯 OBJECTIF HEBDOMADAIRE</div>
-      <div class="irow"><span class="ikey">Vitesse de perte</span>
-        <select class="ival-select" id="i-loss-rate">
-          <option value="500">0,5 kg par semaine</option>
-          <option value="750">0,75 kg par semaine</option>
-          <option value="1000">1 kg par semaine</option>
+      <div class="irow"><span class="ikey">Vitesse</span>
+        <select class="ival-select" id="i-loss-rate" onchange="computeMetabolism(); saveToDevice();">
+          <option value="500">0,5 kg / sem</option>
+          <option value="750">0,75 kg / sem</option>
+          <option value="1000">1 kg / sem</option>
         </select>
       </div>
-      <div class="irow"><span class="ikey">Métabolisme de Base</span><div class="ival" id="i-bmr-val" style="color:var(--amber)">—</div></div>
-      <div class="irow"><span class="ikey">Cible Recommandée</span><div class="ival" id="i-target-val" style="color:var(--green)">—</div></div>
+      <div class="irow"><span class="ikey">Métabolisme</span><div class="ival" id="i-bmr-val" style="color:var(--amber)">—</div></div>
+      <div class="irow"><span class="ikey">Cible recomandée</span><div class="ival" id="i-target-val" style="color:var(--green)">—</div></div>
     </div>
-    <button class="isave" onclick="saveInfo()">Enregistrer & Calculer</button>
+    <button class="isave" onclick="saveInfo()">Enregistrer tout</button>
   </div>
 </div>
 
-<!-- NAV BAR COMPLÈTE & ERGONOMIQUE (STYLE ICON-ONLY PREMIUM DOCK) -->
+<!-- DOCK PREMIUM ADAPTÉ (FIXÉ SUR TOUS LES MOBILES VIA ENV) -->
 <div id="bnav-wrap">
   <div class="ni on" id="ni-home" onclick="go('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
   </div>
   <div class="ni" id="ni-prayers" onclick="go('prayers')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
   </div>
   <div class="ni" id="ni-weight" onclick="go('weight')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -460,7 +429,7 @@ html, body {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
   </div>
   <div class="ni" id="ni-counter" onclick="go('counter')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
   </div>
   <div class="ni" id="ni-info" onclick="go('info')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -485,7 +454,6 @@ function loadFromDevice() {
       if(!S.images) S.images = {};
       if(!S.nutrition) S.nutrition = {};
       if(!S.counter) S.counter = { days: 0, maxDays: 0, since: null, active: true };
-      if(S.counter.maxDays === undefined) S.counter.maxDays = S.counter.days || 0;
       if(!S.info) S.info = { name:'', age:'', height:'', startw:'', goalw:'', gender:'M', lossRate:'500', targetKcal:2000 };
     } catch(e) { console.error(e); }
   }
@@ -514,8 +482,7 @@ function scrollToRight(containerId) {
 }
 
 function generateDateBar(containerId, selectedKey, onClickCallback) {
-  const wrap = document.getElementById(containerId);
-  if(!wrap) return;
+  const wrap = document.getElementById(containerId); if(!wrap) return;
   wrap.innerHTML = '';
   const dates = buildDatesFromJune20();
   const months = ['jan', 'fév', 'mar', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'];
@@ -555,6 +522,15 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),1800);
 }
 
+// --- LIGHTBOX MANAGEMENT ---
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('on');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('on');
+}
+
 // --- PRIERES ---
 let selPrayerDate = keyOf(new Date());
 function initPrayerPage(){
@@ -576,12 +552,29 @@ function initWeightPage(){
   const w = S.weights[selWeightDate];
   document.getElementById('weight-display').innerHTML = (w ? w.toFixed(1) : '—') + '<span> kg</span>';
   document.getElementById('weight-input').value = w || '';
+  
+  // Update metric blocks
+  const keys = Object.keys(S.weights).sort();
+  const latestW = keys.length > 0 ? S.weights[keys[keys.length-1]] : null;
+  document.getElementById('wm-start').textContent = S.info.startw ? S.info.startw + ' kg' : '—';
+  document.getElementById('wm-cur').textContent = latestW ? latestW.toFixed(1) + ' kg' : '—';
+  document.getElementById('wm-goal').textContent = S.info.goalw ? S.info.goalw + ' kg' : '—';
+  
   renderDayImages();
 }
+
 function addWeight(){
   const v = parseFloat(document.getElementById('weight-input').value); if(isNaN(v)) return;
-  S.weights[selWeightDate] = v; computeMetabolism(); saveToDevice(); initWeightPage(); updateHome(); showToast('Poids enregistré ✓');
+  S.weights[selWeightDate] = v;
+  
+  // SYNCHRONISATION INSTANTANÉE AVEC LE MÉTABOLISME
+  computeMetabolism(); 
+  saveToDevice(); 
+  initWeightPage(); 
+  updateHome(); 
+  showToast('Poids synchronisé ✓');
 }
+
 function handleImageUpload(input) {
   if (!input.files || !input.files[0]) return;
   const reader = new FileReader();
@@ -595,7 +588,8 @@ function renderDayImages() {
   const grid = document.getElementById('weight-img-grid'); grid.innerHTML = '';
   (S.images[selWeightDate] || []).forEach((src, idx) => {
     const box = document.createElement('div'); box.className = 'img-box';
-    box.innerHTML = `<img src="${src}"><button class="img-del" onclick="deleteImage(${idx})">×</button>`;
+    // Le clic sur l'image ouvre la modale, le bouton supprime
+    box.innerHTML = `<img src="${src}" onclick="openLightbox('${src}')"><button class="img-del" onclick="event.stopPropagation(); deleteImage(${idx})">×</button>`;
     grid.appendChild(box);
   });
 }
@@ -607,13 +601,14 @@ function initNutritionPage(){
   generateDateBar('nut-dates', selNutDate, (k) => { selNutDate = k; initNutritionPage(); });
   if(!S.nutrition[selNutDate]) S.nutrition[selNutDate] = { logged: [], consumed: 0, burned: 0 };
   
+  // Recalcul en direct si le poids le plus récent a changé
+  computeMetabolism();
   const target = S.info.targetKcal || 2000;
   const remaining = target - S.nutrition[selNutDate].consumed + S.nutrition[selNutDate].burned;
 
   document.getElementById('nut-in-val').textContent = S.nutrition[selNutDate].consumed;
-  document.getElementById('nut-out-val').textContent = S.nutrition[selNutDate].burned;
   document.getElementById('nut-rem-val').textContent = remaining;
-  document.getElementById('nut-target-status').textContent = `Cible : ${target} kcal | Statut : ${remaining >= 0 ? 'Reste ' + remaining + ' kcal' : 'Dépassé de ' + Math.abs(remaining) + ' kcal'}`;
+  document.getElementById('nut-target-status').textContent = `Cible : ${target} kcal | ${remaining >= 0 ? 'Reste ' + remaining + ' kcal' : 'Dépassé de ' + Math.abs(remaining) + ' kcal'}`;
   
   const summary = document.getElementById('nut-day-summary'); summary.innerHTML = '';
   S.nutrition[selNutDate].logged.forEach(item => {
@@ -627,7 +622,6 @@ function initNutritionPage(){
 function sendChatMsg() {
   const input = document.getElementById('chat-input'); const txt = input.value.trim(); if(!txt) return;
   appendChatBubble(txt, 'user'); input.value = '';
-
   setTimeout(() => {
     let lower = txt.toLowerCase(); let plus = 0; let moins = 0; let desc = txt;
     if(lower.includes("quick") || lower.includes("giant")) { plus = 950; desc = "🍔 Menu Quick"; }
@@ -652,36 +646,34 @@ function appendChatBubble(t, side){
   d.className = `chat-msg msg-${side}`; d.textContent = t; l.appendChild(d); l.scrollTop = l.scrollHeight;
 }
 
-// --- COMPTEUR & LOGIQUE DE RECORD ---
+// --- COMPTEUR ---
 function initCounterPage(){
   document.getElementById('ctr-num').textContent = S.counter.days;
-  document.getElementById('ctr-since').textContent = S.counter.since || '—';
   document.getElementById('ctr-max-input').value = S.counter.maxDays || 0;
 }
 function ctrAdd(){
   S.counter.days++;
   if(!S.counter.since) S.counter.since = new Date().toLocaleDateString('fr-FR');
-  if(S.counter.days > S.counter.maxDays) {
-    S.counter.maxDays = S.counter.days;
-  }
+  if(S.counter.days > S.counter.maxDays) S.counter.maxDays = S.counter.days;
   saveToDevice(); initCounterPage(); updateHome();
 }
 function updateMaxRecord(val) {
-  let num = parseInt(val);
-  if(isNaN(num) || num < 0) num = 0;
-  S.counter.maxDays = num;
-  saveToDevice(); updateHome(); showToast('Record ajusté 🏆');
+  let num = parseInt(val); if(isNaN(num) || num < 0) num = 0;
+  S.counter.maxDays = num; saveToDevice(); updateHome(); showToast('Record ajusté 🏆');
 }
-function ctrStop() {
-  S.counter.days = 0; S.counter.since = null;
-  saveToDevice(); initCounterPage(); updateHome();
-}
+function ctrStop() { S.counter.days = 0; S.counter.since = null; saveToDevice(); initCounterPage(); updateHome(); }
 
-// --- MÉTABOLISME ---
+// --- CALCULS DU MÉTABOLISME (INSTANTANÉS) ---
 function computeMetabolism() {
   const age = parseInt(S.info.age); const height = parseInt(S.info.height);
+  
+  // Cherche TOUJOURS la dernière pesée entrée dans le calendrier
   const keys = Object.keys(S.weights).sort();
-  const weight = keys.length > 0 ? S.weights[keys[keys.length-1]] : parseFloat(S.info.startw);
+  const latestWeight = keys.length > 0 ? S.weights[keys[keys.length-1]] : null;
+  
+  // Utilise le dernier poids du calendrier, sinon se rabat sur le poids de base du profil
+  const weight = latestWeight || parseFloat(S.info.startw);
+  
   if(!age || !height || !weight) return;
   
   let bmr = (10 * weight) + (6.25 * height) - (5 * age);
@@ -691,9 +683,14 @@ function computeMetabolism() {
   if(target < 1200) target = 1200;
   
   S.info.targetKcal = target;
-  document.getElementById('i-bmr-val').textContent = tdee + " kcal";
-  document.getElementById('i-target-val').textContent = target + " kcal";
+  
+  // Met à jour l'affichage si les éléments existent dans la page
+  const bmrEl = document.getElementById('i-bmr-val');
+  const targetEl = document.getElementById('i-target-val');
+  if(bmrEl) bmrEl.textContent = tdee + " kcal";
+  if(targetEl) targetEl.textContent = target + " kcal";
 }
+
 function initInfoPage(){
   document.getElementById('i-name').value = S.info.name || '';
   document.getElementById('i-age').value = S.info.age || '';
@@ -712,21 +709,22 @@ function saveInfo(){
   S.info.goalw = document.getElementById('i-goalw').value;
   S.info.gender = document.getElementById('i-gender').value;
   S.info.lossRate = document.getElementById('i-loss-rate').value;
-  computeMetabolism(); saveToDevice(); updateHome(); showToast('Profil mis à jour ✓');
+  computeMetabolism(); saveToDevice(); updateHome(); showToast('Profil enregistré ✓');
 }
 
 // --- ACCUEIL ---
 function updateHome(){
   loadFromDevice();
+  computeMetabolism();
   document.getElementById('greet-name').textContent = S.info.name || '—';
   document.getElementById('home-counter-num').textContent = S.counter.days;
-  document.getElementById('home-counter-max').textContent = (S.counter.maxDays || 0) + " jours";
-  document.getElementById('home-since').textContent = S.counter.since || '—';
   
   const keys = Object.keys(S.weights).sort(); const curW = keys.length>0 ? S.weights[keys[keys.length-1]] : null;
   if(curW){
     document.getElementById('home-weight-empty').style.display='none'; document.getElementById('home-weight-data').style.display='block';
     document.getElementById('home-weight-val').innerHTML = curW.toFixed(1)+'<span> kg</span>';
+  } else {
+    document.getElementById('home-weight-empty').style.display='block'; document.getElementById('home-weight-data').style.display='none';
   }
   document.getElementById('home-obj-badge').textContent = S.info.goalw ? 'Obj : '+S.info.goalw+' kg' : 'Obj : —';
   

@@ -42,7 +42,7 @@ html, body {
   display:none;
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 120px; /* Augmenté pour laisser respirer le bas */
+  padding-bottom: 120px;
 }
 .page.on{display:block}
 
@@ -62,11 +62,12 @@ html, body {
 .card:active{transform:scale(.98)}
 
 .ch{display:flex;align-items:center;gap:11px;margin-bottom:12px}
-.cico width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.gi{background:rgba(46,204,138,0.18)}
-.bi{background:rgba(74,144,226,0.18)}
-.ai{background:rgba(245,166,35,0.18)}
-.pi{background:rgba(155,93,229,0.18)}
+.cico {width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.cico svg {width:22px;height:22px;stroke-width:2.2}
+.gi{background:var(--gdim);color:var(--green)}
+.bi{background:var(--bdim);color:var(--blue)}
+.ai{background:var(--adim);color:var(--amber)}
+.pi{background:var(--pdim);color:var(--purple)}
 .ctitle{font-size:17px;font-weight:600}
 .csub{font-size:11px;color:var(--t2);margin-top:1px}
 
@@ -74,7 +75,6 @@ html, body {
 .srow{display:flex;gap:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px}
 .si{flex:1}
 .sv{font-size:15px;font-weight:600}
-.sl stroke-width:2px;font-size:10px;color:var(--t3);margin-top:1px}
 .sl{font-size:10px;color:var(--t3);margin-top:1px}
 
 .ph{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
@@ -93,9 +93,7 @@ html, body {
 .dpill .dnum{font-size:18px;font-weight:700;line-height:1.2}
 .dpill .dmon{font-size:9px;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px;opacity:0.7}
 .dpill .dday{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:6px;opacity:0.5}
-.dpill.sel{
-  background:transparent;border:2px solid var(--green);color:var(--green);
-}
+.dpill.sel{background:transparent;border:2px solid var(--green);color:var(--green)}
 .dpill.sel .dday, .dpill.sel .dmon{opacity:0.9}
 
 .prayer-list{margin:14px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:18px;overflow:hidden}
@@ -107,15 +105,9 @@ html, body {
 .pname{font-size:15px;font-weight:500}
 .ptime{margin-left:auto;font-size:12px;color:var(--t2)}
 
-.scards{display:flex;gap:10px;padding:14px 18px 0}
-.scard{flex:1;background:var(--card);border:1px solid var(--cb);border-radius:13px;padding:13px}
-.snum{font-size:26px;font-weight:700;color:var(--green)}
-.slbl{font-size:10px;color:var(--t3);margin-top:1px}
-
 .whdr{padding:20px 18px 0}
 .wbig{font-size:50px;font-weight:700;line-height:1;display:flex;align-items:baseline;gap:5px}
 .wbig span{font-size:17px;color:var(--t2);font-weight:400}
-.wchange{font-size:13px;color:var(--green);margin-top:4px}
 .winput-row{display:flex;gap:10px;padding:14px 18px 0;align-items:center}
 .winput{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;color:var(--t);font-size:22px;font-weight:600;width:130px;outline:none;text-align:center}
 .wbtn{padding:11px 16px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer}
@@ -126,32 +118,29 @@ html, body {
 .wmv{font-size:18px;font-weight:700;color:var(--blue)}
 .wml{font-size:10px;color:var(--t3);margin-top:1px}
 
-.image-section{margin:20px 18px 0;background:var(--card);border:1px dashed rgba(255,255,255,0.15);border-radius:18px;padding:16px;text-align:center;}
-.img-preview-container{margin-top:12px;display:grid;grid-template-columns:repeat(2, 1fr);gap:10px;}
-.img-box{position:relative;border-radius:10px;overflow:hidden;background:#1a1a24;aspect-ratio:4/3;cursor:pointer;}
-.img-box img{width:100%;height:100%;object-fit:cover;}
-.img-del{position:absolute;top:6px;right:6px;background:rgba(224,85,85,0.9);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;font-weight:bold;z-index:2;}
+.image-section{margin:20px 18px 0;background:var(--card);border:1px dashed rgba(255,255,255,0.15);border-radius:18px;padding:16px;text-align:center}
+.img-preview-container{margin-top:12px;display:grid;grid-template-columns:repeat(2, 1fr);gap:10px}
+.img-box{position:relative;border-radius:10px;overflow:hidden;background:#1a1a24;aspect-ratio:4/3;cursor:pointer}
+.img-box img{width:100%;height:100%;object-fit:cover}
+.img-del{position:absolute;top:6px;right:6px;background:rgba(224,85,85,0.9);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;font-weight:bold;z-index:2}
 
-/* MODALE DE VISIONNEUSE PHOTO (LIGHTBOX) */
-.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:999;justify-content:center;align-items:center;padding:20px;}
+.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:999;justify-content:center;align-items:center;padding:20px}
 .lightbox.on{display:flex}
-.lightbox img{max-width:100%;max-height:85%;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.8);}
+.lightbox img{max-width:100%;max-height:85%;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.8)}
 
 .chat-container{margin:14px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
-.chat-logs{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px;}
+.chat-logs{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px}
 .chat-msg{font-size:13px;padding:10px 12px;border-radius:12px;max-width:85%;line-height:1.4}
 .msg-user{background:rgba(255,255,255,0.08);color:var(--t);align-self:flex-end;border-bottom-right-radius:2px}
 .msg-bot{background:rgba(155,93,229,0.15);color:#d6b4fc;align-self:flex-start;border-bottom-left-radius:2px}
-.chat-input-row{display:flex;gap:8px;}
+.chat-input-row{display:flex;gap:8px}
 .chat-in{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px;color:var(--t);font-size:13px;outline:none}
 .chat-btn{background:var(--purple);color:#fff;border:none;border-radius:10px;padding:0 14px;font-size:13px;font-weight:600;cursor:pointer}
 
 .ctr-body{padding:40px 18px 0;text-align:center}
 .ctr-num{font-size:86px;font-weight:700;color:var(--amber);line-height:1}
 .ctr-unit{font-size:18px;color:var(--t2);margin-top:2px}
-.ctr-since{margin:16px 18px 0;background:var(--card);border:1px solid var(--cb);border-radius:14px;padding:14px;text-align:center}
-.ctr-sl{font-size:11px;color:var(--t3)}
-.ctr-sv{font-size:16px;font-weight:600;color:var(--amber);margin-top:3px}
+.ctr-record-label{font-size:12px;color:var(--t3);margin-top:10px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
 .ctr-btns{display:flex;gap:12px;padding:20px 18px 0}
 .ctr-btn{flex:1;padding:16px;border-radius:14px;border:none;font-size:15px;font-weight:600;cursor:pointer;transition:transform .12s}
 .ctr-btn:active{transform:scale(.97)}
@@ -160,21 +149,21 @@ html, body {
 
 .info-body{padding:16px 18px 0;display:flex;flex-direction:column;gap:12px}
 .icard{background:var(--card);border:1px solid var(--cb);border-radius:16px;padding:14px}
-.icard-title{font-size:12px;color:var(--t3);margin-bottom:10px;font-weight:600;letter-spacing:.5px}
-.irow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.icard-title{font-size:11px;color:var(--t3);margin-bottom:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
 .irow:last-child{border-bottom:none}
 .ikey{font-size:13px;color:var(--t2)}
 .ival{font-size:14px;font-weight:600}
-.ival-input{background:transparent;border:none;color:var(--t);font-size:14px;font-weight:600;text-align:right;width:110px;outline:none;font-family:inherit}
+.ival-input{background:transparent;border:none;color:var(--t);font-size:14px;font-weight:600;text-align:right;width:120px;outline:none;font-family:inherit}
 .ival-input::placeholder{color:var(--t3)}
-.ival-select{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--t);font-size:12px;font-weight:600;border-radius:6px;padding:4px 8px;outline:none}
-.isave{width:100%;padding:12px;border-radius:12px;background:var(--green);border:none;color:#000;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;transition:transform .12s}
+.ival-select{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--t);font-size:13px;font-weight:600;border-radius:8px;padding:6px 10px;outline:none;text-align:right}
+.ival-select option { background:#14141c; color:var(--t); }
+.isave{width:100%;padding:14px;border-radius:12px;background:var(--green);border:none;color:#000;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;transition:transform .12s}
 .isave:active{transform:scale(.98)}
 
 .toast{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-size:12px;font-weight:700;padding:6px 18px;border-radius:20px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;white-space:nowrap}
 .toast.show{opacity:1}
 
-/* BARRE DE NAVIGATION RECORRIGÉE POUR ÉVITER LE COUPE-BAS */
 #bnav-wrap {
   position: absolute;
   bottom: calc(15px + env(safe-area-inset-bottom, 10px));
@@ -205,26 +194,15 @@ html, body {
   transition: all 0.2s ease;
   position: relative;
 }
-.ni svg {
-  width: 23px;
-  height: 23px;
-  stroke-width: 2.2;
-}
+.ni svg {width: 23px; height: 23px; stroke-width: 2.2}
 #ni-home.on { color: var(--t); background: rgba(255,255,255,0.08); }
 #ni-prayers.on { color: var(--green); background: var(--gdim); }
 #ni-weight.on { color: var(--blue); background: var(--bdim); }
 #ni-nutrition.on { color: var(--purple); background: var(--pdim); }
 #ni-counter.on { color: var(--amber); background: var(--adim); }
 #ni-info.on { color: #fff; background: rgba(255,255,255,0.12); }
-
 .ni.on::after {
-  content: '';
-  position: absolute;
-  bottom: 5px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: currentColor;
+  content: ''; position: absolute; bottom: 5px; width: 4px; height: 4px; border-radius: 50%; background: currentColor;
 }
 </style>
 </head>
@@ -233,7 +211,7 @@ html, body {
 <div class="app" id="app">
 <div class="toast" id="toast"></div>
 
-<!-- LIGTHBOX POUR VISIONNER LES IMAGES EN GRAND -->
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <img id="lightbox-img" src="" alt="Visualisation">
 </div>
@@ -250,9 +228,12 @@ html, body {
     <div class="greet-sub">Que ta journée soit pleine de baraka.</div>
   </div>
   <div class="cards">
+    <!-- PRIERES -->
     <div class="card" onclick="go('prayers')">
       <div class="ch">
-        <div class="cico gi">自由</div>
+        <div class="cico gi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
         <div><div class="ctitle">Prières</div><div class="csub" id="home-prayer-sub">Suivi quotidien</div></div>
         <div style="margin-left:auto">
           <svg width="50" height="50" viewBox="0 0 50 50">
@@ -263,9 +244,12 @@ html, body {
         </div>
       </div>
     </div>
+    <!-- POIDS & PHOTOS -->
     <div class="card" onclick="go('weight')">
       <div class="ch">
-        <div class="cico bi">⚖️</div>
+        <div class="cico bi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
         <div><div class="ctitle">Poids & Photos</div><div class="csub">Progression corporelle</div></div>
         <div style="margin-left:auto;background:var(--bdim);border:1px solid rgba(74,144,226,0.3);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--blue)" id="home-obj-badge">Obj : —</div>
       </div>
@@ -274,9 +258,12 @@ html, body {
         <div style="font-size:36px;font-weight:700;line-height:1" id="home-weight-val">— kg</div>
       </div>
     </div>
+    <!-- NUTRITION -->
     <div class="card" onclick="go('nutrition')">
       <div class="ch">
-        <div class="cico pi">🍳</div>
+        <div class="cico pi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
         <div><div class="ctitle">Nutrition & Calories</div><div class="csub" id="home-nut-sub">Cible : — kcal</div></div>
       </div>
       <div class="srow">
@@ -284,10 +271,13 @@ html, body {
         <div class="si"><div class="sl">Reste</div><div class="sv" id="home-nut-rem" style="color:var(--green)">0 kcal</div></div>
       </div>
     </div>
+    <!-- COMPTEUR -->
     <div class="card" onclick="go('counter')">
       <div class="ch">
-        <div class="cico ai">⏳</div>
-        <div><div class="ctitle">Compteur</div><div class="csub">Ta constance globale</div></div>
+        <div class="cico ai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div><div class="ctitle">Compteur</div><div class="csub" id="home-counter-sub">Série maximale : 0</div></div>
         <div style="margin-left:auto;text-align:center">
           <div style="font-size:30px;font-weight:700;color:var(--amber)" id="home-counter-num">0</div>
         </div>
@@ -296,9 +286,9 @@ html, body {
   </div>
 </div>
 
-<!-- PRIERES -->
+<!-- PAGE PRIERES -->
 <div class="page" id="pg-prayers">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">🕌 Prières</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Prières</div></div>
   <div class="datebar" id="db-prayers"><div class="dscroll" id="prayer-dates"></div></div>
   <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px 0">
     <div style="font-size:13px;color:var(--t2)" id="prayer-day-label">Aujourd'hui</div>
@@ -313,9 +303,9 @@ html, body {
   </div>
 </div>
 
-<!-- POIDS -->
+<!-- PAGE POIDS -->
 <div class="page" id="pg-weight">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">⚖️ Poids</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Poids</div></div>
   <div class="datebar" id="db-weight"><div class="dscroll" id="weight-dates"></div></div>
   <div class="whdr">
     <div style="font-size:12px;color:var(--t3);margin-bottom:4px" id="weight-day-label">Aujourd'hui</div>
@@ -326,9 +316,9 @@ html, body {
     <button class="wbtn wbtn-add" onclick="addWeight()">Enregistrer</button>
   </div>
   <div class="wmetrics">
-    <div class="wmet"><div class="wml">Départ</div><div class="wmv" id="wm-start">—</div></div>
-    <div class="wmet"><div class="wml">Dernier</div><div class="wmv" id="wm-cur">—</div></div>
-    <div class="wmet"><div class="wml">Objectif</div><div class="wmv" id="wm-goal">—</div></div>
+    <div class="wmet"><div class="wml">Initial</div><div class="wmv" id="wm-start">—</div></div>
+    <div class="wmet"><div class="wml">Actuel</div><div class="wmv" id="wm-cur">—</div></div>
+    <div class="wmet"><div class="wml">Visé</div><div class="wmv" id="wm-goal">—</div></div>
   </div>
   <div class="image-section">
     <div style="font-size:14px;font-weight:600;margin-bottom:4px;text-align:left">📸 Captures & Photos</div>
@@ -338,9 +328,9 @@ html, body {
   </div>
 </div>
 
-<!-- NUTRITION -->
+<!-- PAGE NUTRITION -->
 <div class="page" id="pg-nutrition">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">🍳 Nutrition & Calories</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Nutrition</div></div>
   <div class="datebar" id="db-nutrition"><div class="dscroll" id="nut-dates"></div></div>
   <div class="whdr" style="padding-bottom:5px">
     <div style="font-size:12px;color:var(--t3);margin-bottom:4px" id="nut-day-label">Aujourd'hui</div>
@@ -360,19 +350,13 @@ html, body {
   <div id="nut-day-summary" style="padding:8px 18px 0;display:flex;flex-direction:column;gap:8px"></div>
 </div>
 
-<!-- COMPTEUR -->
+<!-- PAGE COMPTEUR -->
 <div class="page" id="pg-counter">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle">⏳ Compteur</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Compteur</div></div>
   <div class="ctr-body">
     <div class="ctr-num" id="ctr-num">0</div>
-    <div class="ctr-unit">jours</div>
-  </div>
-  <div class="icard" style="margin: 16px 18px 0; text-align: left;">
-    <div class="icard-title">🏆 RECORD</div>
-    <div class="irow">
-      <span class="ikey">Record maximal (jours)</span>
-      <input class="ival-input" id="ctr-max-input" type="number" value="0" onchange="updateMaxRecord(this.value)" style="color:var(--amber); font-size:16px;" />
-    </div>
+    <div class="ctr-unit">jours consécutifs</div>
+    <div class="ctr-record-label" id="ctr-max-label">Record : 0 jours</div>
   </div>
   <div class="ctr-btns">
     <button class="ctr-btn ctr-add" onclick="ctrAdd()">+1 Jour</button>
@@ -380,41 +364,56 @@ html, body {
   </div>
 </div>
 
-<!-- PROFIL -->
+<!-- PAGE PROFIL / INFOS -->
 <div class="page" id="pg-info">
-  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Mon profil</div></div>
+  <div class="ph"><div class="back" onclick="go('home')">←</div><div class="ptitle"> Mon Profil</div></div>
   <div class="info-body">
     <div class="icard">
+      <div class="icard-title">Identité</div>
       <div class="irow"><span class="ikey">Prénom</span><input class="ival-input" id="i-name" placeholder="Prénom" /></div>
       <div class="irow"><span class="ikey">Âge</span><input class="ival-input" id="i-age" type="number" /></div>
       <div class="irow"><span class="ikey">Sexe</span>
-        <select class="ival-select" id="i-gender">
+        <select class="ival-select" id="i-gender" onchange="computeMetabolism()">
           <option value="M">Homme</option>
           <option value="F">Femme</option>
         </select>
       </div>
+      <div class="irow"><span class="ikey">Taille (cm)</span><input class="ival-input" id="i-height" type="number" oninput="computeMetabolism()" /></div>
     </div>
+    
     <div class="icard">
-      <div class="irow"><span class="ikey">Taille (cm)</span><input class="ival-input" id="i-height" type="number" /></div>
-      <div class="irow"><span class="ikey">Poids initial</span><input class="ival-input" id="i-startw" type="number" step="0.1" /></div>
-      <div class="irow"><span class="ikey">Poids ciblé</span><input class="ival-input" id="i-goalw" type="number" step="0.1" /></div>
+      <div class="icard-title">Suivi des Objectifs de Poids</div>
+      <div class="irow"><span class="ikey">Poids initial (Repère)</span><input class="ival-input" id="i-startw" type="number" step="0.1" /></div>
+      <div class="irow"><span class="ikey">Poids actuel (Calculs)</span><input class="ival-input" id="i-curw" type="number" step="0.1" oninput="syncFromProfileWeight(this.value)" /></div>
+      <div class="irow"><span class="ikey">Poids visé (Objectif)</span><input class="ival-input" id="i-goalw" type="number" step="0.1" /></div>
     </div>
+
     <div class="icard">
-      <div class="irow"><span class="ikey">Vitesse</span>
-        <select class="ival-select" id="i-loss-rate" onchange="computeMetabolism(); saveToDevice();">
-          <option value="500">0,5 kg / sem</option>
-          <option value="750">0,75 kg / sem</option>
-          <option value="1000">1 kg / sem</option>
+      <div class="icard-title">Objectif Hebdomadaire</div>
+      <div class="irow">
+        <span class="ikey">Rythme choisi</span>
+        <select class="ival-select" id="i-weekly-goal" onchange="computeMetabolism()">
+          <option value="-1.0">Perdre 1.0 kg / semaine</option>
+          <option value="-0.75">Perdre 0.75 kg / semaine</option>
+          <option value="-0.5">Perdre 0.5 kg / semaine (Recommandé)</option>
+          <option value="-0.25">Perdre 0.25 kg / semaine</option>
+          <option value="0.0">Maintenir mon poids</option>
+          <option value="0.25">Prendre 0.25 kg / semaine</option>
+          <option value="0.5">Prendre 0.5 kg / semaine</option>
         </select>
       </div>
-      <div class="irow"><span class="ikey">Métabolisme</span><div class="ival" id="i-bmr-val" style="color:var(--amber)">—</div></div>
-      <div class="irow"><span class="ikey">Cible recomandée</span><div class="ival" id="i-target-val" style="color:var(--green)">—</div></div>
+    </div>
+
+    <div class="icard">
+      <div class="icard-title">Métabolisme & Besoins</div>
+      <div class="irow"><span class="ikey">Maintien estimé (TDEE)</span><div class="ival" id="i-bmr-val" style="color:var(--amber)">—</div></div>
+      <div class="irow"><span class="ikey">Cible Calorique Finale</span><div class="ival" id="i-target-val" style="color:var(--green)">—</div></div>
     </div>
     <button class="isave" onclick="saveInfo()">Enregistrer tout</button>
   </div>
 </div>
 
-<!-- DOCK PREMIUM ADAPTÉ (FIXÉ SUR TOUS LES MOBILES VIA ENV) -->
+<!-- DOCK NAVIGATION -->
 <div id="bnav-wrap">
   <div class="ni on" id="ni-home" onclick="go('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -442,7 +441,7 @@ html, body {
 let S = {
   prayers: {}, weights: {}, images: {}, nutrition: {},
   counter: { days: 0, maxDays: 0, since: null, active: true },
-  info: { name:'', age:'', height:'', startw:'', goalw:'', gender:'M', lossRate:'500', targetKcal:2000 }
+  info: { name:'', age:'', height:'', startw:'', curw:'', goalw:'', gender:'M', weeklyGoal:'-0.5', targetKcal:2000 }
 };
 
 function saveToDevice() { localStorage.setItem('mizan_data', JSON.stringify(S)); }
@@ -454,7 +453,9 @@ function loadFromDevice() {
       if(!S.images) S.images = {};
       if(!S.nutrition) S.nutrition = {};
       if(!S.counter) S.counter = { days: 0, maxDays: 0, since: null, active: true };
-      if(!S.info) S.info = { name:'', age:'', height:'', startw:'', goalw:'', gender:'M', lossRate:'500', targetKcal:2000 };
+      if(S.counter.maxDays === undefined) S.counter.maxDays = S.counter.days || 0;
+      if(!S.info) S.info = { name:'', age:'', height:'', startw:'', curw:'', goalw:'', gender:'M', weeklyGoal:'-0.5', targetKcal:2000 };
+      if(!S.info.weeklyGoal) S.info.weeklyGoal = '-0.5';
     } catch(e) { console.error(e); }
   }
 }
@@ -464,21 +465,14 @@ function keyOf(d){ return d.toISOString().slice(0,10); }
 function buildDatesFromJune20() {
   const arr = [];
   const start = new Date("2026-06-20T12:00:00");
-  const today = new Date();
-  today.setHours(12,0,0,0);
+  const today = new Date(); today.setHours(12,0,0,0);
   let current = new Date(start);
-  while(current <= today) {
-    arr.push(new Date(current));
-    current.setDate(current.getDate() + 1);
-  }
+  while(current <= today) { arr.push(new Date(current)); current.setDate(current.getDate() + 1); }
   return arr;
 }
 
 function scrollToRight(containerId) {
-  setTimeout(() => {
-    const el = document.getElementById(containerId);
-    if(el) el.scrollLeft = el.scrollWidth;
-  }, 50);
+  setTimeout(() => { const el = document.getElementById(containerId); if(el) el.scrollLeft = el.scrollWidth; }, 50);
 }
 
 function generateDateBar(containerId, selectedKey, onClickCallback) {
@@ -522,14 +516,10 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),1800);
 }
 
-// --- LIGHTBOX MANAGEMENT ---
 function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
-  document.getElementById('lightbox').classList.add('on');
+  document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('on');
 }
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('on');
-}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('on'); }
 
 // --- PRIERES ---
 let selPrayerDate = keyOf(new Date());
@@ -553,11 +543,8 @@ function initWeightPage(){
   document.getElementById('weight-display').innerHTML = (w ? w.toFixed(1) : '—') + '<span> kg</span>';
   document.getElementById('weight-input').value = w || '';
   
-  // Update metric blocks
-  const keys = Object.keys(S.weights).sort();
-  const latestW = keys.length > 0 ? S.weights[keys[keys.length-1]] : null;
   document.getElementById('wm-start').textContent = S.info.startw ? S.info.startw + ' kg' : '—';
-  document.getElementById('wm-cur').textContent = latestW ? latestW.toFixed(1) + ' kg' : '—';
+  document.getElementById('wm-cur').textContent = S.info.curw ? S.info.curw + ' kg' : '—';
   document.getElementById('wm-goal').textContent = S.info.goalw ? S.info.goalw + ' kg' : '—';
   
   renderDayImages();
@@ -566,13 +553,20 @@ function initWeightPage(){
 function addWeight(){
   const v = parseFloat(document.getElementById('weight-input').value); if(isNaN(v)) return;
   S.weights[selWeightDate] = v;
+  S.info.curw = v.toString();
   
-  // SYNCHRONISATION INSTANTANÉE AVEC LE MÉTABOLISME
   computeMetabolism(); 
   saveToDevice(); 
   initWeightPage(); 
   updateHome(); 
-  showToast('Poids synchronisé ✓');
+  showToast('Poids actuel synchronisé ✓');
+}
+
+function syncFromProfileWeight(val) {
+  S.info.curw = val;
+  const v = parseFloat(val);
+  if(!isNaN(v)) { S.weights[selWeightDate] = v; }
+  computeMetabolism();
 }
 
 function handleImageUpload(input) {
@@ -588,7 +582,6 @@ function renderDayImages() {
   const grid = document.getElementById('weight-img-grid'); grid.innerHTML = '';
   (S.images[selWeightDate] || []).forEach((src, idx) => {
     const box = document.createElement('div'); box.className = 'img-box';
-    // Le clic sur l'image ouvre la modale, le bouton supprime
     box.innerHTML = `<img src="${src}" onclick="openLightbox('${src}')"><button class="img-del" onclick="event.stopPropagation(); deleteImage(${idx})">×</button>`;
     grid.appendChild(box);
   });
@@ -601,7 +594,6 @@ function initNutritionPage(){
   generateDateBar('nut-dates', selNutDate, (k) => { selNutDate = k; initNutritionPage(); });
   if(!S.nutrition[selNutDate]) S.nutrition[selNutDate] = { logged: [], consumed: 0, burned: 0 };
   
-  // Recalcul en direct si le poids le plus récent a changé
   computeMetabolism();
   const target = S.info.targetKcal || 2000;
   const remaining = target - S.nutrition[selNutDate].consumed + S.nutrition[selNutDate].burned;
@@ -647,48 +639,45 @@ function appendChatBubble(t, side){
 }
 
 // --- COMPTEUR ---
-function initCounterPage(){
-  document.getElementById('ctr-num').textContent = S.counter.days;
-  document.getElementById('ctr-max-input').value = S.counter.maxDays || 0;
+function initCounterPage(){ 
+  document.getElementById('ctr-num').textContent = S.counter.days; 
+  document.getElementById('ctr-max-label').textContent = `Record : ${S.counter.maxDays || 0} jours`;
 }
-function ctrAdd(){
-  S.counter.days++;
-  if(!S.counter.since) S.counter.since = new Date().toLocaleDateString('fr-FR');
-  if(S.counter.days > S.counter.maxDays) S.counter.maxDays = S.counter.days;
-  saveToDevice(); initCounterPage(); updateHome();
+function ctrAdd(){ 
+  S.counter.days++; 
+  if(S.counter.days > (S.counter.maxDays || 0)) { S.counter.maxDays = S.counter.days; }
+  saveToDevice(); initCounterPage(); updateHome(); 
 }
-function updateMaxRecord(val) {
-  let num = parseInt(val); if(isNaN(num) || num < 0) num = 0;
-  S.counter.maxDays = num; saveToDevice(); updateHome(); showToast('Record ajusté 🏆');
+function ctrStop() { 
+  S.counter.days = 0; saveToDevice(); initCounterPage(); updateHome(); 
 }
-function ctrStop() { S.counter.days = 0; S.counter.since = null; saveToDevice(); initCounterPage(); updateHome(); }
 
-// --- CALCULS DU MÉTABOLISME (INSTANTANÉS) ---
+// --- CALCUL DU METABOLISME + DEFICIT DE PERTE ---
 function computeMetabolism() {
-  const age = parseInt(S.info.age); const height = parseInt(S.info.height);
+  const age = parseInt(S.info.age); 
+  const height = parseInt(S.info.height);
+  const weight = parseFloat(S.info.curw); 
+  const weeklyGoal = parseFloat(S.info.weeklyGoal || '-0.5');
   
-  // Cherche TOUJOURS la dernière pesée entrée dans le calendrier
-  const keys = Object.keys(S.weights).sort();
-  const latestWeight = keys.length > 0 ? S.weights[keys[keys.length-1]] : null;
-  
-  // Utilise le dernier poids du calendrier, sinon se rabat sur le poids de base du profil
-  const weight = latestWeight || parseFloat(S.info.startw);
-  
-  if(!age || !height || !weight) return;
+  if(!age || !height || !weight || isNaN(weight)) {
+    S.info.targetKcal = 2000; return;
+  }
   
   let bmr = (10 * weight) + (6.25 * height) - (5 * age);
   if(S.info.gender === 'M') bmr += 5; else bmr -= 161;
-  let tdee = Math.round(bmr * 1.2);
-  let target = tdee - (parseInt(S.info.lossRate) || 500);
-  if(target < 1200) target = 1200;
   
-  S.info.targetKcal = target;
+  let tdee = Math.round(bmr * 1.375);
+  let energyAdjustment = weeklyGoal * 1100; 
+  let targetKcal = Math.round(tdee + energyAdjustment);
   
-  // Met à jour l'affichage si les éléments existent dans la page
+  if(targetKcal < 1200) targetKcal = 1200;
+  
+  S.info.targetKcal = targetKcal;
+  
   const bmrEl = document.getElementById('i-bmr-val');
   const targetEl = document.getElementById('i-target-val');
   if(bmrEl) bmrEl.textContent = tdee + " kcal";
-  if(targetEl) targetEl.textContent = target + " kcal";
+  if(targetEl) targetEl.textContent = targetKcal + " kcal";
 }
 
 function initInfoPage(){
@@ -696,9 +685,10 @@ function initInfoPage(){
   document.getElementById('i-age').value = S.info.age || '';
   document.getElementById('i-height').value = S.info.height || '';
   document.getElementById('i-startw').value = S.info.startw || '';
+  document.getElementById('i-curw').value = S.info.curw || '';
   document.getElementById('i-goalw').value = S.info.goalw || '';
   document.getElementById('i-gender').value = S.info.gender || 'M';
-  document.getElementById('i-loss-rate').value = S.info.lossRate || '500';
+  document.getElementById('i-weekly-goal').value = S.info.weeklyGoal || '-0.5';
   computeMetabolism();
 }
 function saveInfo(){
@@ -706,27 +696,29 @@ function saveInfo(){
   S.info.age = document.getElementById('i-age').value;
   S.info.height = document.getElementById('i-height').value;
   S.info.startw = document.getElementById('i-startw').value;
+  S.info.curw = document.getElementById('i-curw').value;
   S.info.goalw = document.getElementById('i-goalw').value;
   S.info.gender = document.getElementById('i-gender').value;
-  S.info.lossRate = document.getElementById('i-loss-rate').value;
+  S.info.weeklyGoal = document.getElementById('i-weekly-goal').value;
   computeMetabolism(); saveToDevice(); updateHome(); showToast('Profil enregistré ✓');
 }
 
-// --- ACCUEIL ---
+// --- MISE À JOUR DE L'ACCUEIL ---
 function updateHome(){
   loadFromDevice();
   computeMetabolism();
   document.getElementById('greet-name').textContent = S.info.name || '—';
   document.getElementById('home-counter-num').textContent = S.counter.days;
+  document.getElementById('home-counter-sub').textContent = `Série maximale : ${S.counter.maxDays || 0}`;
   
-  const keys = Object.keys(S.weights).sort(); const curW = keys.length>0 ? S.weights[keys[keys.length-1]] : null;
-  if(curW){
+  const curW = parseFloat(S.info.curw);
+  if(!isNaN(curW) && curW > 0){
     document.getElementById('home-weight-empty').style.display='none'; document.getElementById('home-weight-data').style.display='block';
     document.getElementById('home-weight-val').innerHTML = curW.toFixed(1)+'<span> kg</span>';
   } else {
     document.getElementById('home-weight-empty').style.display='block'; document.getElementById('home-weight-data').style.display='none';
   }
-  document.getElementById('home-obj-badge').textContent = S.info.goalw ? 'Obj : '+S.info.goalw+' kg' : 'Obj : —';
+  document.getElementById('home-obj-badge').textContent = S.info.goalw ? 'Visé : '+S.info.goalw+' kg' : 'Visé : —';
   
   const todayK = keyOf(new Date());
   const todayNut = S.nutrition[todayK] || { consumed: 0, burned: 0 };
